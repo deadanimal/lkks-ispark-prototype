@@ -1,0 +1,157 @@
+<div class="header pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <h6 class="h2 text-dark d-inline-block mb-0">Anak Syarikat</h6>
+
+                    <nav aria-label="breadcrumb" class=" d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class=" breadcrumb-item">
+                                <a href="javascript:void(0)"> <i class="fas fa-building text-dark"> </i> </a>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header bg-secondary">
+                    <h6 class="text-uppercase text-muted ls-1 mb-1">Carta Graf</h6>
+                    <h5 class="h3 mb-0">Kecemerlangan & Hasil Tertunggak</h5>
+                </div>
+                <div class="card-body">
+                    <h5 class="h3 mb-0">RM10,458</h5>
+                    <p class="mt-0 mb-3 text-sm">
+                        <span class="text-nowrap"> Jumlah kecemerlangan </span>
+                        <span class="text-success mr-2">
+                            <i class="fa fa-arrow-up"> </i> 9.4%
+                        </span>
+                    </p>
+                    <div class="chart">
+                        <div class="amchart" id="as1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header bg-secondary">
+                    <h6 class="text-uppercase text-muted ls-1 mb-1">Carta Graf</h6>
+                    <h5 class="h3 mb-0">Jumlah Keuntungan</h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart">
+                        <div class="amchart" id="as2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header bg-secondary">
+                    <h6 class="text-uppercase text-muted ls-1 mb-1">Carta Graf</h6>
+                    <h5 class="h3 mb-0">Prestasi Tahunan</h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart">
+                        <div class="amchart" id="as3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header bg-secondary">
+                    <h6 class="text-uppercase text-muted ls-1 mb-1">Senarai</h6>
+                    <h5 class="h3 mb-0">Profil Anak Syarikat</h5>
+                </div>
+                <div class="card-body">
+                    <div class="dataTables_wrapper py-2">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="dataTables_length pl-0" id="datatable_length">
+                                    <label>
+                                        Papar
+                                        <select name="datatable_length" aria-controls="datatable"
+                                            class="form-control form-control-sm" (change)="entriesChange($event)">
+                                            <option value="5" [selected]="entries == 5">5</option>
+                                            <option value="10" [selected]="entries == 10">10</option>
+                                            <option value="20" [selected]="entries == 20">20</option>
+                                            <option value="-1" [selected]="entries == -1">All</option>
+                                        </select>
+                                        rekod
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div id="datatable_filter" class="dataTables_filter pr-0">
+                                    <label>
+                                        <input type="search" class="form-control form-control-sm"
+                                            placeholder="Search records" aria-controls="datatable"
+                                            (keyup)="filterTable($event)" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'" [headerHeight]="50"
+                            [footerHeight]="50" [rowHeight]="'auto'" [limit]="entries != -1 ? entries : undefined"
+                            [rows]="temp" (activate)="onActivate($event)">
+                            <ngx-datatable-column name="idusahawan">
+                                <ng-template ngx-datatable-header-template>
+                                    <span>ID</span>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Nama"></ngx-datatable-column>
+                            <ngx-datatable-column name="syarikat">
+                                <ng-template ngx-datatable-header-template>
+                                    <span>Nama syarikat</span>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="tarikh">
+                                <ng-template ngx-datatable-header-template>
+                                    <span>Tarikh pendaftaran</span>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="alamat">
+                                <ng-template ngx-datatable-header-template>
+                                    <span>Alamat syarikat</span>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="status">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    <span *ngIf="row.status == '1'" class="badge badge-pill badge-success">Aktif</span>
+                                    <span *ngIf="row.status == '2'" class="badge badge-pill badge-danger">Tidak
+                                        Aktif</span>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column>
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    <a class="btn btn-sm btn-warning">
+                                        <i class="fas fa-edit text-white"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-danger">
+                                        <i class="fas fa-trash text-white"></i>
+                                    </a>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

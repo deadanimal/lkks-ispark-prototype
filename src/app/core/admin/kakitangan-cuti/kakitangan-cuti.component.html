@@ -1,0 +1,408 @@
+<div class="header pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <h6 class="h2 text-dark d-inline-block mb-0">Cuti</h6>
+
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)">
+                                    <i class="fas fa-user-tie text-dark"> </i>
+                                </a>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-xs-12">
+                    <div class="card card-stats">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                        Jumlah Cuti Tahunan
+                                    </h5>
+
+                                    <span class="h1 font-weight-bold mb-0"> 20 </span>
+                                </div>
+                            </div>
+
+                            <p class="mt-3 mb-0 text-sm text-center">
+                                <span class="text-success mr-2 font-weight-bold">
+                                    <i class="fa fa-arrow-up"> </i> 3.48%
+                                </span>
+
+                                <span class="text-nowrap"> sejak bulan lepas </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-xs-12">
+                    <div class="card card-stats">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                        Jumlah Cuti Dibenarkan Sebulan
+                                    </h5>
+
+                                    <span class="h1 font-weight-bold mb-0"> 2 </span>
+                                </div>
+                            </div>
+
+                            <p class="mt-3 mb-0 text-sm text-center">
+                                <span class="text-success mr-2 font-weight-bold">
+                                    <i class="fa fa-arrow-up"> </i> 0.8%
+                                </span>
+
+                                <span class="text-nowrap"> sejak bulan lepas </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-xs-12">
+                    <div class="card card-stats">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                        Jumlah Terkini Pekerja Sedang Bercuti
+                                    </h5>
+
+                                    <span class="h1 font-weight-bold mb-0"> 13 </span>
+                                </div>
+                            </div>
+
+                            <p class="mt-3 mb-0 text-sm text-center">
+                                <span class="text-success mr-2 font-weight-bold">
+                                    <i class="fa fa-arrow-up"> </i> 0.4%
+                                </span>
+
+                                <span class="text-nowrap"> sejak bulan lepas </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <h3 class="mb-0">Senarai Cuti</h3>
+                        </div>
+                        <div class="col-auto text-right">
+                            <button class="btn btn-default btn-sm" (click)="openModal(modalCuti, 'Tambah')">
+                                Tambah
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4 col-xs-12">
+                            <div class="form-group">
+                                <label class="form-control-label">Carian melalui</label>
+                                <select class="form-control form-control-sm">
+                                    <option>Sila pilih</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 text-right" style="
+                  display: flex;
+                  justify-content: flex-end;
+                  align-items: center;
+                ">
+                            <button class="btn btn-info btn-sm">Cari</button>
+                            <button class="btn btn-secondary btn-sm" (click)="clickReset()">
+                                Set Semula
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="dataTables_wrapper py-4">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="dataTables_length" id="datatable_length">
+                                            <label>
+                                                Papar
+                                                <select name="datatable_length" aria-controls="datatable"
+                                                    class="form-control form-control-sm"
+                                                    (change)="entriesChange($event)">
+                                                    <option value="5" [selected]="entries == 5">5</option>
+                                                    <option value="10" [selected]="entries == 10">10</option>
+                                                    <option value="25" [selected]="entries == 25">25</option>
+                                                    <option value="50" [selected]="entries == 50">50</option>
+                                                    <option value="-1" [selected]="entries == -1">Semua</option>
+                                                </select>
+                                                rekod
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div id="datatable_filter" class="dataTables_filter">
+                                            <label>
+                                                <input type="search" class="form-control form-control-sm"
+                                                    placeholder="Cari rekod" aria-controls="datatable"
+                                                    (keyup)="filterTable($event)" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ngx-datatable class="bootstrap selection-cell" [columnMode]="'force'"
+                                    [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+                                    [limit]="entries != -1 ? entries : undefined" [rows]="temp"
+                                    (activate)="onActivate($event)">
+                                    <!-- <ngx-datatable-column>
+                        <ng-template ngx-datatable-header-template>
+                          <span>No</span>
+                        </ng-template>
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                          {{ row.id + 1 }}
+                        </ng-template>
+                      </ngx-datatable-column> -->
+                                    <ngx-datatable-column>
+                                        <ng-template ngx-datatable-header-template>
+                                            <span>ID Cuti</span>
+                                        </ng-template>
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            {{ row.holidayid }}
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column>
+                                        <ng-template ngx-datatable-header-template>
+                                            <span>Tajuk</span>
+                                        </ng-template>
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            {{ row.holidaytitle }}
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column>
+                                        <ng-template ngx-datatable-header-template>
+                                            <span>Jenis</span>
+                                        </ng-template>
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            {{ row.holidaytype }}
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column>
+                                        <ng-template ngx-datatable-header-template>
+                                            <span>Berulang?</span>
+                                        </ng-template>
+                                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <span [ngClass]="statusBadge(row.holidayrepeat)">{{
+                                                row.holidayrepeat
+                                                }}</span>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column>
+                                        <ng-template ngx-datatable-header-template>
+                                            <span>Tindakan</span>
+                                        </ng-template>
+                                        <ng-template ngx-datatable-cell-template>
+                                            <button class="btn btn-warning btn-sm"
+                                                (click)="openModal(modalCuti, 'Kemaskini')">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm" (click)="clickDelete()">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                </ngx-datatable>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">Senarai Permohonan Cuti</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead>
+                                <tr>
+                                    <th>Bil</th>
+                                    <th>ID Cuti</th>
+                                    <th>Nama Pekerja</th>
+                                    <th>Jenis Cuti</th>
+                                    <th>Hari?</th>
+                                    <th>Tindakan</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr *ngFor="let applicationLeave of applicationLeaves">
+                                    <td>{{ applicationLeave.id }}</td>
+                                    <td>{{ applicationLeave.holidayid }}</td>
+                                    <td>{{ applicationLeave.holidayemployeename }}</td>
+                                    <td>{{ applicationLeave.holidaytype }}</td>
+                                    <td>{{ applicationLeave.holidayday }}</td>
+                                    <td>
+                                        <button class="btn btn-warning btn-sm"
+                                            (click)="openModalP(modalPermohonan, 'Kemaskini')">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm" (click)="clickDelete()">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalCuti>
+    <div class="modal-header bg-default">
+        <h4 class="modal-title pull-left text-white">{{ modalTitle }} Cuti</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true" class="text-white">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-6 col-xs-12">
+                <div class="form-group">
+                    <label class="form-control-label">Tajuk</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="cth Cuti Pertabalan Agong" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label">Berulang?</label>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="radioTiada" name="radioBerulang" class="custom-control-input" />
+                        <label class="custom-control-label" for="radioTiada">Tiada</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="radioHarian" name="radioBerulang" class="custom-control-input" />
+                        <label class="custom-control-label" for="radioHarian">Harian</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="radioMingguan" name="radioBerulang" class="custom-control-input" />
+                        <label class="custom-control-label" for="radioMingguan">Mingguan</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="radioBulanan" name="radioBerulang" class="custom-control-input" />
+                        <label class="custom-control-label" for="radioBulanan">Bulanan</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="radioTahunan" name="radioBerulang" class="custom-control-input" />
+                        <label class="custom-control-label" for="radioTahunan">Tahunan</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xs-12">
+                <div class="form-group">
+                    <label class="form-control-label">Jenis</label>
+                    <select class="form-control form-control-sm">
+                        <option>Sila pilih</option>
+                        <option>Cuti Umum</option>
+                        <option>Cuti Peristiwa</option>
+                        <option>Cuti Perayaan</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label">Keterangan</label><br />
+                    <textarea rows="5" class="form-control form-control-sm"
+                        placeholder="cth Cuti Pertabalan agong yang diadakan pada tarikh 15 Mei 2020 ..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default btn-sm" (click)="clickSave()">Simpan</button>
+        <button class="btn btn-secondary btn-sm" (click)="closeModal()">
+            Tutup
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #modalPermohonan>
+    <div class="modal-header bg-default">
+        <h4 class="modal-title pull-left text-white">
+            {{ modalTitleP }} Permohonan Cuti
+        </h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModalP()">
+            <span aria-hidden="true" class="text-white">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-6 col-xs-12">
+                <strong>ID Cuti</strong>
+            </div>
+            <div class="col-lg-6 col-xs-12">H2020-00089</div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-lg-6 col-xs-12">
+                <strong>Nama Pemohon</strong>
+            </div>
+            <div class="col-lg-6 col-xs-12">Abdul Latif bin Abdul Majid</div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-lg-6 col-xs-12">
+                <strong>Jenis Cuti</strong>
+            </div>
+            <div class="col-lg-6 col-xs-12">Cuti Tahunan</div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-lg-6 col-xs-12">
+                <strong>Hari Dipohon</strong>
+            </div>
+            <div class="col-lg-6 col-xs-12">3</div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-lg-6 col-xs-12">
+                <label class="form-control-label">Kelulusan</label>
+                <div class="custom-control custom-radio mb-3">
+                    <input type="radio" id="radioLulus" name="radioKelulusan" class="custom-control-input" />
+                    <label class="custom-control-label" for="radioLulus">Lulus</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="radioGagal" name="radioKelulusan" class="custom-control-input" />
+                    <label class="custom-control-label" for="radioGagal">Gagal</label>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xs-12">
+                <label class="form-control-label">Nota</label>
+                <textarea rows="4" class="form-control form-control-sm"
+                    placeholder="*Masukkan nota jika ada"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default btn-sm" (click)="clickSaveP()">
+            Simpan
+        </button>
+        <button class="btn btn-secondary btn-sm" (click)="closeModalP()">
+            Tutup
+        </button>
+    </div>
+</ng-template>
